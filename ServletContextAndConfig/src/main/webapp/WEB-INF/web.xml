@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+                      https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0">
+    <display-name>Archetype Created Web Application</display-name>
+    <servlet>
+        <servlet-name>InitPramServlet</servlet-name>
+        <servlet-class>winT.InitPramsServlet</servlet-class>
+        <init-param>
+            <param-name>title</param-name>
+            <param-value>ServletConfigDemo</param-value>
+        </init-param>
+        <init-param>
+            <param-name>configStyle</param-name>
+            <param-value>XML</param-value>
+<!--            cấu hình thông tin cho serlet liên quan đến phần giao diện-->
+<!--            như tên , màu sắc, các thông tin dùng nhiều lần,số trong trang ,v.v-->
+<!--            context pram dùng cho toàn bộ servlet thay vì chỉ một như init param-->
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>InitPramServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    
+    <context-param>
+        <param-name>author</param-name>
+        <param-value>winT</param-value>
+    </context-param>
+    <context-param>
+        <param-name>country</param-name>
+        <param-value>Viet nam</param-value>
+    </context-param>
+</web-app>

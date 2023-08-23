@@ -1,0 +1,115 @@
+Safe Method (Phương thức an toàn):
+Một phương thức được coi là "Safe" khi nó chỉ truy vấn thông tin từ máy chủ và
+ không thay đổi trạng thái của máy chủ. Các yêu cầu "Safe" không gây ảnh hưởng
+ đến nguồn tài nguyên được yêu cầu và không làm thay đổi dữ liệu trên máy chủ.
+
+Các phương thức "Safe" bao gồm:
+GET: Truy vấn dữ liệu từ máy chủ.
+HEAD: Nhận thông tin tiêu đề HTTP của tài nguyên mà yêu cầu sẽ trả về,
+nhưng không truyền nội dung của tài nguyên.
+OPTIONS: Lấy thông tin về các phương thức HTTP mà máy chủ hỗ trợ cho tài nguyên cụ thể.
+Ví dụ: Một yêu cầu GET để lấy thông tin sản phẩm từ máy chủ được coi
+là "Safe" vì nó không thay đổi dữ liệu trên máy chủ.
+
+Idempotent:
+Một phương thức được coi là "Idempotent" nếu thực hiện nhiều yêu cầu với cùng
+một thông tin trong cùng một trạng thái đầu vào sẽ dẫn đến cùng một trạng thái đầu ra.
+Có nghĩa là việc thực hiện nhiều yêu cầu giống nhau không gây ra các thay đổi khác nhau trong hệ thống.
+Các phương thức "Idempotent" bao gồm:
+
+GET: Là idempotent vì việc thực hiện nhiều yêu cầu GET với cùng một URI sẽ không thay đổi trạng thái của máy chủ.
+PUT: Đặt hoặc cập nhật tài nguyên tại một URI cụ thể. Nếu bạn thực hiện nhiều
+yêu cầu PUT với cùng một thông tin, nó sẽ ghi đè trên tài nguyên gốc và kết quả cuối cùng sẽ không thay đổi.
+Ví dụ: Một yêu cầu PUT để cập nhật thông tin sản phẩm với cùng một thông tin trong nhiều
+lần yêu cầu sẽ không làm thay đổi dữ liệu tại tài nguyên này và vẫn có kết quả như nhau.
+
+Trong thiết kế API hoặc khi triển khai các yêu cầu HTTP, việc hiểu và sử dụng đúng các phương thức "Safe"
+và "Idempotent" sẽ giúp bạn xây dựng và quản lý ứng dụng một cách hiệu quả và đáng tin cậy.
+
+
+
+
+GET:
+Sử dụng GET khi bạn muốn truy vấn dữ liệu từ máy chủ và không thay đổi trạng thái của máy chủ.
+GET được sử dụng để lấy thông tin và hiển thị nó cho người dùng, như các trang HTML, hình ảnh, dữ liệu JSON, v.v.
+Không sử dụng GET để gửi dữ liệu nhạy cảm, như mật khẩu, thông tin người dùng, v.v. vì dữ liệu sẽ xuất hiện trong URL
+và có thể dễ dàng bị truy vấn bởi người dùng hoặc lưu trong lịch sử trình duyệt.
+POST:
+Sử dụng POST khi bạn muốn gửi dữ liệu từ người dùng đến máy chủ để thêm hoặc cập nhật tài nguyên.
+POST thường được sử dụng trong các biểu mẫu đăng ký, gửi dữ liệu qua hình thức (form data), tải lên tệp tin, v.v.
+POST thường không idempotent, nghĩa là thực hiện cùng một yêu cầu POST nhiều lần có thể tạo ra nhiều tài nguyên mới.
+PUT:
+Sử dụng PUT khi bạn muốn tạo hoặc cập nhật tài nguyên tại một URI cụ thể.
+PUT là idempotent, có nghĩa là thực hiện cùng một yêu cầu PUT nhiều lần sẽ không thay đổi trạng thái của tài nguyên.
+PUT thường được sử dụng để thêm mới hoặc cập nhật thông tin của một tài nguyên.
+DELETE:
+Sử dụng DELETE khi bạn muốn xóa một tài nguyên tại một URI cụ thể.
+DELETE là idempotent, có nghĩa là thực hiện cùng một yêu cầu DELETE nhiều lần sẽ không thay đổi trạng thái của máy chủ.
+DELETE thường được sử dụng để xóa thông tin hoặc tài nguyên không còn cần thiết.
+PATCH:
+Sử dụng PATCH khi bạn muốn cập nhật một phần của tài nguyên, thay vì thay đổi toàn bộ tài nguyên như PUT.
+PATCH không phải là phương thức chuẩn của HTTP, nhưng nó thường được sử dụng để hỗ trợ việc cập nhật phần dữ liệu
+cụ thể của tài nguyên.
+
+
+HEAD:
+Phương thức HEAD giống như phương thức GET, nhưng nó chỉ trả về các thông tin tiêu đề
+ HTTP của tài nguyên được yêu cầu mà không truyền nội dung thực tế của tài nguyên đó.
+Phương thức này thường được sử dụng khi bạn muốn kiểm tra sự tồn tại của một tài nguyên hoặc lấy
+ thông tin tiêu đề của nó mà không cần tải nội dung đầy đủ. Điều này hữu ích trong việc kiểm tra tính
+ sẵn sàng và trạng thái của tài nguyên mà không tốn tài nguyên mạng cho việc tải nội dung không cần thiết.
+OPTIONS:
+Phương thức OPTIONS được sử dụng để lấy thông tin về các phương thức HTTP mà máy chủ hỗ trợ cho tài nguyên cụ thể.
+Một yêu cầu OPTIONS trả về các thông tin về các phương thức mà máy chủ hỗ trợ (ví dụ: GET, POST, PUT, DELETE, v.v.)
+, các yêu cầu bổ sung mà máy chủ chấp nhận và các tiêu đề hỗ trợ khác của máy chủ.
+Phương thức OPTIONS cho phép ứng dụng tương tác với máy chủ và tìm hiểu được những hoạt động nào có thể
+  được thực hiện trên tài nguyên đó.
+
+HEAD và OPTIONS là hai phương thức HTTP có tính năng đặc biệt, và bạn có thể sử dụng chúng trong các trường
+hợp cụ thể để kiểm tra thông tin và tương tác với các tài nguyên mà không tác động đến dữ liệu của chúng.
+
+
+forward sẽ chuyển hướng trang nhưng resquest và url không đổi , yêu cầu sẽ gửi từ cilent đến servlet xử lý sau đó đến url đích cho
+servlet quản lý url đích đó xử lý
+nhưng resquest và respone sẽ không đổi nên url vẫn dữ nguyên ở servelt xử lý
+session ban đầu giữ nguyên : nên xử dụng khi lấy thông tin hoặc chuyển hướng nhưng vẫn giữ thông tin để khi người dùng làm mới lại
+trang thì sẽ không ảnh hưởng
+
+redirect sẽ chuyển hướng bằng cách yêu cầu gửi từ cilent đến servlet xử lý ,servlet sẽ (302) chuyển hướng tạm
+thời đến url đích về cho trình duyệt khi khó trình duyệt mới gửi resquest mới đến serlet xử lý url đích
+session ban đầu sẽ bị xóa nên
+nên dùng để xử lý với POST hoặc khi thanh toán để khi người dùng làm mới trang thì khi đó sẽ không có request mới được tạo ra
+
+
+always use redirect in a POST request, don't use forward in POST request.
+which means in an idempotent HTTP Request, don't use forward.
+
+Redirect in POST Request:
+When a POST request is made to the server,
+it usually involves submitting data and performing an action,
+ such as creating or updating a resource on the server. If you use forward in a POST request
+ , it may lead to unintended behavior. When the user refreshes the page after the POST request,
+ the browser will re-submit the same data and repeat the action, which may not be desirable in many cases.
+ To prevent such issues, using redirect after a successful POST request is a better approach.
+ The redirect will instruct the browser to make a GET request to a new URL, preventing the browser
+ from re-submitting the POST data.
+
+ Chuyển hướng trong Yêu cầu POST: Khi một yêu cầu POST được gửi tới máy chủ,
+ nó thường liên quan đến việc gửi dữ liệu và thực hiện một hành động, chẳng hạn như tạo hoặc cập nhật
+ tài nguyên trên máy chủ. Nếu bạn sử dụng chuyển tiếp trong yêu cầu POST, điều đó có thể dẫn đến hành vi ngoài ý muốn.
+  Khi người dùng làm mới trang sau yêu cầu POST, trình duyệt sẽ gửi lại cùng một dữ liệu và lặp lại hành động, điều này có
+   thể không được mong muốn trong nhiều trường hợp. Để ngăn chặn các sự cố như vậy, sử dụng chuyển hướng sau khi yêu cầu
+   POST thành công là một cách tiếp cận tốt hơn. Chuyển hướng sẽ hướng dẫn trình duyệt thực hiện yêu cầu GET tới một URL mới,
+    ngăn trình duyệt gửi lại dữ liệu POST.
+
+
+Tránh chuyển tiếp trong các yêu cầu tạm thời: Các yêu cầu tạm thời,
+ như GET và HEAD, được thiết kế để có tác dụng tương tự ngay cả khi chúng được lặp lại nhiều lần.
+  Khi bạn sử dụng chuyển tiếp trong các yêu cầu tạm thời, nó có thể gây ra chi phí không cần thiết và dẫn đến nhiều
+   lần thực thi phía máy chủ của cùng một yêu cầu. Sử dụng chuyển tiếp trong các yêu cầu tạm thời không cung cấp bất
+   kỳ lợi ích bổ sung nào và có thể dẫn đến các vấn đề về hiệu suất. Do đó, tốt hơn là sử dụng chuyển hướng hoặc xử lý
+    yêu cầu trực tiếp mà không cần chuyển tiếp.
+
+request.setAttribute nên dùng với forward  attribute chỉ tồn tại trong request được set
+còn Session nên dùng với redirect
+

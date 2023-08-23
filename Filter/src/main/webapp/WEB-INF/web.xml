@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
+    <filter>
+        <filter-name>RequestLogin</filter-name>
+        <filter-class>com.wint.filter.RequestLoginFilter</filter-class>
+        <init-param>
+            <param-name>author</param-name>
+            <param-value>WinT</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>RequestLogin</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+</web-app>
